@@ -21,11 +21,13 @@ public class LoginPage  extends BaseClass{
 		PageFactory.initElements(driver, this);
 	}
 	
-	public HomePage verifylogin(String email,String pass) {
+	public HomePage verifylogin(String email,String pass) throws Exception {
 		Email.sendKeys(email);
 		Password.sendKeys(pass);
+		takescreenshot();
 		ScrollElementIntoView(login);
 		javaScriptClick(login);
+		takescreenshot();
 		return new HomePage();
 	}
 }

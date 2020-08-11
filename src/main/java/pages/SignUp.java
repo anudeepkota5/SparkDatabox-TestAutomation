@@ -39,5 +39,6 @@ public class SignUp extends BaseClass{
 		email.sendKeys(eml);
 		password.sendKeys(pass);
 		confirmpassword.sendKeys(pass);
+		signup.click();
 }
 }

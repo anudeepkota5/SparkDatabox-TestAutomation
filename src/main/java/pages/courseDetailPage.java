@@ -39,8 +39,9 @@ public class courseDetailPage extends BaseClass{
 		return this;
 	}
 	
-	public MyCourses clickOnGetEnrolled() {
+	public MyCourses clickOnGetEnrolled() throws Exception {
 		getenrolled.click();
+		takescreenshot();
 		return new MyCourses();
 	}
 }

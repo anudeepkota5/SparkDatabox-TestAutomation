@@ -67,13 +67,15 @@ public class HomePage extends BaseClass {
 		return JavaScriptCourseTitle.getText();		
 	}
 	
-	public HomePage entercourse(String query) {
+	public HomePage entercourse(String query) throws Exception {
 		searchbox.sendKeys(query);	
+		takescreenshot();
 		return this;
 	}
 	
-	public coursesPage clickSearch(){
+	public coursesPage clickSearch() throws Exception{
 		searchicon.click();
+		takescreenshot();
 		return new coursesPage();
 	}
 	
@@ -129,8 +131,9 @@ public class HomePage extends BaseClass {
 		return driver.getTitle();
 	}
 	
-	public LoginPage clickOnLogin() {
+	public LoginPage clickOnLogin() throws Exception {
 		login.click();
+		takescreenshot();
 		return new LoginPage();
 	}
 	
@@ -149,8 +152,10 @@ public class HomePage extends BaseClass {
 		return new GetEnrolledPage();
 	}
 	
-	public void logout(){
+	public void logout() throws Exception{
 		driver.findElement(By.xpath("//a/img[@class='img-fluid']")).click();
+		takescreenshot();
 		driver.findElement(By.xpath("//a[text()='Log Out']")).click();
+		takescreenshot();
 	}
 }

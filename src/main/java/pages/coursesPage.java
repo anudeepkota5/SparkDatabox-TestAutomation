@@ -18,21 +18,22 @@ public class coursesPage extends BaseClass{
 		PageFactory.initElements(driver, this);
 	}
 	
-	public void validatesearchResult(String strtext){
+	public void validatesearchResult(String strtext) throws Exception{
 		for(WebElement e:searchList){
 			System.out.println(e.getText());
 			assertTrue(e.getText().toLowerCase().contains(strtext.toLowerCase()));
 		}
+		takescreenshot();
 	}
 	
-	public courseDetailPage selectCourse(String strtext){
+	public courseDetailPage selectCourse(String strtext) throws Exception{
 		for(WebElement e:searchList){
 			System.out.println(e.getText());
 			if(e.getText().toLowerCase().contains(strtext.toLowerCase())){
 				e.click();
 			}
 		}
-		
+		takescreenshot();
 		return new courseDetailPage();
 	}
 }

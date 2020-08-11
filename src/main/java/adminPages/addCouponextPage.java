@@ -22,15 +22,17 @@ public class addCouponextPage extends BaseClass{
 		PageFactory.initElements(driver, this);
 	}
 	
-	public addCouponextPage selectCourseType(String strcourseType){
+	public addCouponextPage selectCourseType(String strcourseType) throws Exception{
 		Select courseType = new Select(driver.findElement(By.id("courses_type_select")));
 		courseType.selectByVisibleText(strcourseType);
+		takescreenshot();
 		return this;
 	}
 	
-	public addCouponextPage verifySuccessMessage(){
+	public addCouponextPage verifySuccessMessage() throws Exception{
 		boolean success = driver.findElement(By.xpath("//p[text()='updated successfully']")).isDisplayed();
 		assertTrue(success);
+		takescreenshot();
 		return this;
 	}
 	

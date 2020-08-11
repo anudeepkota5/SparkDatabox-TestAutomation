@@ -24,19 +24,23 @@ public class discountPage extends BaseClass{
 		PageFactory.initElements(driver, this);
 	}
 	
-	public boolean verifyFlatINR(){
+	public boolean verifyFlatINR() throws Exception{
+		takescreenshot();
 		return flatINR.isDisplayed();
 	}
 	
-	public boolean verifypercentageDiscount(){
+	public boolean verifypercentageDiscount() throws Exception{
+		takescreenshot();
 		return percentageDisc.isDisplayed();
 	}
 	
-	public boolean verifyFlatFree(){
+	public boolean verifyFlatFree() throws Exception{
+		takescreenshot();
 		return Free.isDisplayed();
 	}
 	
-	public boolean verifyFlatDOL(){
+	public boolean verifyFlatDOL() throws Exception{
+		takescreenshot();
 		return flatDol.isDisplayed();
 	}
 }

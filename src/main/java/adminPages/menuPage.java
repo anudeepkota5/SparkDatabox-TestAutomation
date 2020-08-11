@@ -30,12 +30,13 @@ public class menuPage extends BaseClass{
 		enrollment.click();
 	}
 	
-	public couponsPage clickCoupons(){
+	public couponsPage clickCoupons() throws Exception{
 		coupons.click();
+		takescreenshot();
 		return new couponsPage();
 	}
 	
-	public void logout(){
+	public void logout() throws Exception{
 		int k = 0;
 		do{
 			if(driver.findElement(By.xpath("/html/body/div[6]/div")).getAttribute("style").contains("display: none;")){
@@ -44,7 +45,9 @@ public class menuPage extends BaseClass{
 			k++;
 		}while(k < 1000);
 		userdrop.click();
+		takescreenshot();
 		logout.click();
+		takescreenshot();
 	}
 
 }

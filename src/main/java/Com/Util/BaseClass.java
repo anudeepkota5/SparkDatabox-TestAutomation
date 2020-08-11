@@ -2,8 +2,11 @@ package Com.Util;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -12,6 +15,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -195,5 +199,15 @@ public class BaseClass {
 	public void JsSendKeys(WebElement e, String strText){
 		JavascriptExecutor jse = (JavascriptExecutor)driver;
 		jse.executeScript("arguments[0].value='"+strText+"';", e);
+	}
+	
+	public void takescreenshot() throws Exception{
+		String dateName = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+		TakesScreenshot ts = (TakesScreenshot) driver;
+		File source = ts.getScreenshotAs(OutputType.FILE);
+		String destination = System.getProperty("user.dir") + "/FailedTestsScreenshots/"+dateName+".png";
+		File finalDestination = new File(destination);
+		FileUtils.copyFile(source, finalDestination);
+		logger.log(LogStatus.INFO, logger.addScreenCapture(destination));		
 	}
 }

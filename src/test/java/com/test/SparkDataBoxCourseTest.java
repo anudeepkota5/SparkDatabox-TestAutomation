@@ -8,6 +8,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.Test;
 
+import com.relevantcodes.extentreports.LogStatus;
+
 import Com.Util.BaseClass;
 import adminPages.addCouponPage;
 import adminPages.addCouponextPage;
@@ -15,55 +17,48 @@ import adminPages.menuPage;
 import pages.GetEnrolledPage;
 import pages.HomePage;
 import pages.LoginPage;
-import pages.MyCourses;
 import pages.SignUp;
 import pages.discountPage;
 
 public class SparkDataBoxCourseTest extends BaseClass{
 	
-	@Test(enabled = true, priority=1,dataProvider="data")
-	public void SearchQueryTest(Hashtable<String, String> data) {
+	@Test(priority=1,dataProvider="data")
+	public void SearchQueryTest(Hashtable<String, String> data) throws Exception {
+		logger.log(LogStatus.INFO, data.get("Description"));
 		HomePage hp=new HomePage();
 		hp.entercourse(data.get("Query")).clickSearch().validatesearchResult(data.get("Query"));
 	}
 	
 	@Test(priority=2,dataProvider="data")
-	public void userSignupTest(Hashtable<String, String> data) {
+	public void userSignupTest(Hashtable<String, String> data) throws Exception {
+		logger.log(LogStatus.INFO, data.get("Description"));
 		HomePage hp=new HomePage();
 		SignUp Su=hp.clickOnSignUp();
 		Su.registration(data.get("fname"), data.get("lname"), data.get("eml"), data.get("pass"));
 		verifyemail();
-		hp.clickOnLogin().verifylogin(data.get("username"), data.get("password"));
+		hp.clickOnLogin().verifylogin(data.get("eml"), data.get("pass"));
 	}
 	
 	@Test(priority=3,dataProvider="data")
-	 public void verifyLoginTest(Hashtable<String, String> data) {
+	 public void verifyLoginTest(Hashtable<String, String> data) throws Exception {
+		logger.log(LogStatus.INFO, data.get("Description"));
 		HomePage hp=new HomePage();
 		hp.clickOnLogin().verifylogin(data.get("username"), data.get("password"));		      
 	}
-       
-	@Test(priority=4,dataProvider="data")		
-	public void coupon(Hashtable<String, String> data){
+	
+	@Test(priority=4,dataProvider="data")
+	public void buyacourse(Hashtable<String, String> data) throws Exception {
+		logger.log(LogStatus.INFO, data.get("Description"));
 		HomePage hp=new HomePage();
-		LoginPage lpp=hp.clickOnLogin();
-		hp=lpp.verifylogin(data.get("username"), data.get("password"));
-		hp.entercourse(data.get("Query")).clickSearch().selectCourse(data.get("Query")).
-			clickApplyCoupon().entercouponCode(data.get("Coupon")).clickApply();
-		MyCourses mc = new MyCourses();
-		mc.validateAddedCourse(data.get("validatecourse"));
+	    hp.clickOnLogin().verifylogin(data.get("username"), data.get("password"));			
+	    GetEnrolledPage gt=hp.selectLiveAndSelfPacedCourses(data.get("Self-Paced And Live courses"));
+		gt.clickOnEnrollNow().clickOnpaypal()
+		.clickOnguestCheckout(data);			
 	}
 	
-		@Test(priority=6,dataProvider="data")
-		public void buyacourse(Hashtable<String, String> data) throws Exception {
-			HomePage hp=new HomePage();
-		    hp.clickOnLogin().verifylogin(data.get("username"), data.get("password"));			
-		    GetEnrolledPage gt=hp.selectLiveAndSelfPacedCourses(data.get("Self-Paced And Live courses"));
-			gt.clickOnEnrollNow().clickOnpaypal()
-			.clickOnguestCheckout(data);			
-		}
-	
 	@Test(priority=5,dataProvider="data")
-	public void getaFreecourse(Hashtable<String, String> data) {
+	public void getaFreecourse(Hashtable<String, String> data) throws Exception {
+		logger.log(LogStatus.INFO, data.get("Description"));
 		HomePage hp=new HomePage();
 		hp.clickOnLogin().verifylogin(data.get("username"), data.get("password"));		
 		hp.entercourse(data.get("Course")).clickSearch().selectCourse(data.get("Course")).clickOnGetEnrolled();
@@ -78,6 +73,7 @@ public class SparkDataBoxCourseTest extends BaseClass{
 	
 	@Test(priority=6, dataProvider="data")
 	public void TestCompleteCoupons(Hashtable<String, String> data) throws Exception{
+		logger.log(LogStatus.INFO, data.get("Description"));
 		HomePage hp=new HomePage();
 		hp.clickOnLogin().verifylogin(""+prop.get("Adminusername"), ""+prop.get("Adminpasswprd"));
 		menuPage menu = new menuPage();

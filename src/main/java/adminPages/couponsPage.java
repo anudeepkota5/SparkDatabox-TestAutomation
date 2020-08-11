@@ -18,14 +18,17 @@ public class couponsPage extends BaseClass{
 		PageFactory.initElements(driver, this);
 	}
 	
-	public addCouponPage clickAddcoupon(){
+	public addCouponPage clickAddcoupon() throws Exception{
 		addcoupon.click();
+		takescreenshot();
 		return new addCouponPage();
 	}
 	
-	public couponsPage clickDeleteCoupon(){
+	public couponsPage clickDeleteCoupon() throws Exception{
 		delcoupon.click();
+		takescreenshot();
 		new aleartPage().clickcontinue();
+		takescreenshot();
 		return this;
 	}
 

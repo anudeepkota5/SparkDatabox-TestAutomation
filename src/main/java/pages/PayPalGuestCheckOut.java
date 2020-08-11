@@ -69,7 +69,7 @@ public class PayPalGuestCheckOut extends BaseClass{
 	@FindBy(xpath="(//label[@class='noBottom ng-binding ng-scope'])[2]")
 	WebElement nothanksterm;
 	
-	@FindBy(xpath="//button[@id='guestSubmit']")
+	@FindBy(xpath="//button[@type='submit']")
 	WebElement paynow;
 	
 	public PayPalGuestCheckOut() {
@@ -79,8 +79,8 @@ public class PayPalGuestCheckOut extends BaseClass{
 	//String cno,String edate,String cv,String fnam,String lnam,String add,String cit,String stat,String pcode,String tele,String emai
 	public void clickOnguestCheckout(Hashtable<String, String> data) {
 		acceptcookies.click();
-//		Select sel=new Select(country);
-//		sel.selectByIndex(4);
+		Select sel=new Select(country);
+		sel.selectByValue("US");
 		int k = 0;
 		do{
 			if(driver.findElement(By.id("main")).getAttribute("aria-busy").equals("false")){
@@ -101,14 +101,7 @@ public class PayPalGuestCheckOut extends BaseClass{
 		postalcode.sendKeys(data.get("pincode"));
 		telephne.sendKeys(data.get("telephn"));
 		email.sendKeys(data.get("email"));
-//		paypalcheckbox.click();
-//		password.sendKeys(pass);
-//		dateofbirth.sendKeys(dob);
-//		Select sel3=new Select(occupation);
-//		sel3.selectByIndex(5);
-//		bgimg.click();
-		agreeterms.click();
-		
+		ScrollElementIntoView(paynow);
 		paynow.click();
 		
 		//return new PayPalGuestCheckOut();
