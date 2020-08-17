@@ -26,22 +26,25 @@ public class courseDetailPage extends BaseClass{
 	
 	public courseDetailPage clickApplyCoupon(){
 		applyCoupon.click();
+		takeScreenShot("Click on Apply Coupon");
 		return this;
 	}
 	
-	public discountPage clickApply(){
+	public discountPage clickApply() throws Exception{
 		apply.click();
+		takescreenshot("Click on Apply");
 		return new discountPage();
 	}
 	
-	public courseDetailPage entercouponCode(String strCoupon){
+	public courseDetailPage entercouponCode(String strCoupon) throws Exception{
 		couponCode.sendKeys(strCoupon);
+		takescreenshot("Enter Coupon Code as "+strCoupon);
 		return this;
 	}
 	
 	public MyCourses clickOnGetEnrolled() throws Exception {
 		getenrolled.click();
-		takescreenshot();
+		takescreenshot("Click on Get Enrolled");
 		return new MyCourses();
 	}
 }

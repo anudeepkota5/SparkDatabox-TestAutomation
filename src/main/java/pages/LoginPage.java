@@ -23,11 +23,13 @@ public class LoginPage  extends BaseClass{
 	
 	public HomePage verifylogin(String email,String pass) throws Exception {
 		Email.sendKeys(email);
+		takescreenshot("Enter email "+pass);
 		Password.sendKeys(pass);
-		takescreenshot();
+		takescreenshot("Enter Password "+pass);
 		ScrollElementIntoView(login);
 		javaScriptClick(login);
-		takescreenshot();
+		takescreenshot("Click on Login button");
+		Thread.sleep(2000);
 		return new HomePage();
 	}
 }

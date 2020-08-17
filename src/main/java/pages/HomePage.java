@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
@@ -69,13 +70,13 @@ public class HomePage extends BaseClass {
 	
 	public HomePage entercourse(String query) throws Exception {
 		searchbox.sendKeys(query);	
-		takescreenshot();
+		takescreenshot("Enter "+query+" in  search box");
 		return this;
 	}
 	
 	public coursesPage clickSearch() throws Exception{
 		searchicon.click();
-		takescreenshot();
+		takescreenshot("Click on Search");
 		return new coursesPage();
 	}
 	
@@ -115,8 +116,8 @@ public class HomePage extends BaseClass {
 		JavaScriptCourseTitle.click();
 	}
 	
-	public SignUp clickOnSignUp() {
-		log.info("clicking on signup Page");
+	public SignUp clickOnSignUp() throws Exception {
+		takescreenshot("Click on SIGNUP");
 		signup.click();
 		return new SignUp();
 	}
@@ -133,7 +134,7 @@ public class HomePage extends BaseClass {
 	
 	public LoginPage clickOnLogin() throws Exception {
 		login.click();
-		takescreenshot();
+		takescreenshot("Click on Login");
 		return new LoginPage();
 	}
 	
@@ -141,7 +142,8 @@ public class HomePage extends BaseClass {
 		for(int i=0;i<liveandselfpacedcourses.size();i++) {
 			if(liveandselfpacedcourses.get(i).getText().equalsIgnoreCase(LiveAndSelfPaced)) {
 				WebElement elee=liveandselfpacedcourses.get(i);
-				javaScriptClick(elee);				
+				javaScriptClick(elee);		
+				takeScreenShot("Click on "+LiveAndSelfPaced);
 			}
 		}
 		return new GetEnrolledPage();
@@ -153,9 +155,10 @@ public class HomePage extends BaseClass {
 	}
 	
 	public void logout() throws Exception{
-		driver.findElement(By.xpath("//a/img[@class='img-fluid']")).click();
-		takescreenshot();
+		Actions action = new Actions(driver);
+		action.moveToElement(driver.findElement(By.xpath("//a/img[@class='img-fluid']"))).click().perform();
+		takescreenshot("Click on User Image");
 		driver.findElement(By.xpath("//a[text()='Log Out']")).click();
-		takescreenshot();
+		takescreenshot("Click on Logout");
 	}
 }

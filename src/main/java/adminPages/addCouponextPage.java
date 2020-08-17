@@ -25,20 +25,21 @@ public class addCouponextPage extends BaseClass{
 	public addCouponextPage selectCourseType(String strcourseType) throws Exception{
 		Select courseType = new Select(driver.findElement(By.id("courses_type_select")));
 		courseType.selectByVisibleText(strcourseType);
-		takescreenshot();
+		takescreenshot("Select "+strcourseType+ " in Course Type");
 		return this;
 	}
 	
 	public addCouponextPage verifySuccessMessage() throws Exception{
 		boolean success = driver.findElement(By.xpath("//p[text()='updated successfully']")).isDisplayed();
 		assertTrue(success);
-		takescreenshot();
+		takescreenshot("Verify the Message");
 		return this;
 	}
 	
-	public addCouponextPage selectCourse(String strCourse){
+	public addCouponextPage selectCourse(String strCourse) throws Exception{
 		Select courseSelect = new Select(coursesselect);
 		courseSelect.selectByVisibleText(strCourse);
+		takescreenshot("Select "+strCourse+ " in Course");
 		return this;
 	}
 

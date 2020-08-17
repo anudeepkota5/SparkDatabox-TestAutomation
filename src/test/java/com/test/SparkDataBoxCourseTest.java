@@ -18,7 +18,6 @@ import pages.GetEnrolledPage;
 import pages.HomePage;
 import pages.LoginPage;
 import pages.SignUp;
-import pages.discountPage;
 
 public class SparkDataBoxCourseTest extends BaseClass{
 	
@@ -37,13 +36,19 @@ public class SparkDataBoxCourseTest extends BaseClass{
 		Su.registration(data.get("fname"), data.get("lname"), data.get("eml"), data.get("pass"));
 		verifyemail();
 		hp.clickOnLogin().verifylogin(data.get("eml"), data.get("pass"));
+		hp.logout();
+		LoginPage lpp = new LoginPage();
+		lpp .verifylogin(""+prop.get("Adminusername"), ""+prop.get("Adminpasswprd"));
+		menuPage menu = new menuPage();
+		menu.clickStudents().clickStudentsubmenu().searchuser(data.get("eml")).deleteUser(data.get("eml"));
 	}
 	
 	@Test(priority=3,dataProvider="data")
 	 public void verifyLoginTest(Hashtable<String, String> data) throws Exception {
 		logger.log(LogStatus.INFO, data.get("Description"));
 		HomePage hp=new HomePage();
-		hp.clickOnLogin().verifylogin(data.get("username"), data.get("password"));		      
+		hp.clickOnLogin().verifylogin(data.get("username"), data.get("password"));		 
+		
 	}
 	
 	@Test(priority=4,dataProvider="data")
@@ -77,12 +82,11 @@ public class SparkDataBoxCourseTest extends BaseClass{
 		HomePage hp=new HomePage();
 		hp.clickOnLogin().verifylogin(""+prop.get("Adminusername"), ""+prop.get("Adminpasswprd"));
 		menuPage menu = new menuPage();
-		addCouponPage coupon = menu.clickCoupons().clickDeleteCoupon().clickAddcoupon();
+		addCouponPage coupon = menu.clickCoupons().clickDeleteCoupon(data.get("Coupon Title")).clickAddcoupon();
 		coupon.entercoursetitle(data.get("Coupon Title")).entercoursecode(data.get("Coupon Code"))
 		.selectDiscountFor(data.get("Discount For")).selectcoupontype(data.get("Discount Type"));		
 		
 		if(!data.get("Discount Type").equals("Full Free")){
-			//INDIA
 			if(data.get("Discount For").equals("Only in India")){
 				if(data.get("Discount Type").equals("Flat Fixed Discount")){
 					coupon.enterFlatDiscountIN(data.get("Flat discount INR"));
@@ -105,26 +109,32 @@ public class SparkDataBoxCourseTest extends BaseClass{
 			if(data.get("Discount For").equals("Both India and other Countries")){
 				if(data.get("Discount Type").equals("Flat Fixed Discount")){
 					coupon.enterFlatDiscountIN(data.get("Flat discount INR"));
-					coupon.enterFlatDiscountInDol(data.get("Flat discount INR"));
+					coupon.enterFlatDiscountInDol(data.get("Flat discount $"));
 				}else if(data.get("Discount Type").equals("Percentage Discount")){
 					coupon.enterpercentDiscountIN(data.get("Discount INR"));
 					coupon.enterpercentDiscountDol(data.get("Discount $"));
 				}
 				coupon.enterminamountIN(data.get("Minimum Amount in INR"));
-				coupon.enterFlatDiscountInDol(data.get("Minimum Amount in $"));
+				coupon.enterminDolAmount(data.get("Minimum Amount in $"));
 			}
 		}		
 		
 		coupon.selectcouponorVoucher(data.get("Coupon Type")).entermaxUsage(data.get("Maximum usage")).clickSaveandContinue();
 		
 		addCouponextPage coupext = new addCouponextPage();
-		coupext.selectCourseType(data.get("CoursesType")).verifySuccessMessage().selectCourse(data.get("Courses"));
+		coupext.selectCourseType(data.get("CoursesType")).verifySuccessMessage();		
 		
-		boolean display = driver.findElement(By.xpath("//button[contains(text(),'"+data.get("Courses")+"')]")).isDisplayed();
-		assertTrue(display);
 		
-		boolean success2 = driver.findElement(By.xpath("(//p[text()='updated successfully'])[2]")).isDisplayed();
-		assertTrue(success2);
+		if(data.get("Courses").equals("Cutom Multiple Courses")){
+			coupext.selectCourse(data.get("Courses"));
+			
+			boolean display = driver.findElement(By.xpath("//button[contains(text(),'"+data.get("Courses")+"')]")).isDisplayed();
+			assertTrue(display);
+			
+			boolean success2 = driver.findElement(By.xpath("(//p[text()='updated successfully'])[2]")).isDisplayed();
+			assertTrue(success2);			
+		}
+		
 		
 		driver.findElement(By.xpath("//a/span[text()='Basic']")).click();
 		
@@ -135,34 +145,15 @@ public class SparkDataBoxCourseTest extends BaseClass{
 		
 		menu.logout();
 				
-		if(!data.get("Discount For").equals("Only in India")){
+		if(data.get("User").equals("Non - Indian")){
 			hp.clickCountry().selectUS();
 			Thread.sleep(2000);
 		}
 		
 		hp.clickOnLogin().verifylogin(data.get("username"), data.get("password"));
 		
-		discountPage dis = hp.entercourse(data.get("Courses")).clickSearch().selectCourse(data.get("Courses")).
-		clickApplyCoupon().entercouponCode(data.get("Coupon Code")).clickApply();		
-		
-		if(data.get("Discount For").equals("Only in India")){
-			if(data.get("Discount Type").equals("Flat Fixed Discount")){
-				assertTrue(dis.verifyFlatINR());				
-			}else if(data.get("Discount Type").equals("Percentage Discount")){
-				assertTrue(dis.verifypercentageDiscount());		
-			}else{
-				assertTrue(dis.verifyFlatFree());	
-			}
-		}else{
-			if(data.get("Discount Type").equals("Flat Fixed Discount")){
-				assertTrue(dis.verifyFlatDOL());				
-			}else if(data.get("Discount Type").equals("Percentage Discount")){
-				assertTrue(dis.verifypercentageDiscount());		
-			}else{
-				assertTrue(dis.verifyFlatFree());
-			}
-		}
-		
+		hp.entercourse(data.get("Courses")).clickSearch().selectCourse(data.get("Courses")).
+		clickApplyCoupon().entercouponCode(data.get("Coupon Code")).clickApply().verifyResult(data.get("Result"));		
 		
 	}
 

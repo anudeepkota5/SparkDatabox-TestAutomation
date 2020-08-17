@@ -1,5 +1,7 @@
 package pages;
 
+import static org.testng.Assert.assertTrue;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -20,27 +22,28 @@ public class discountPage extends BaseClass{
 	@FindBy(xpath="//div/span[text()='10$ off']")
 	WebElement flatDol;
 	
+	@FindBy(xpath = "//p[text()='sorry this coupon is not applicable in your region! please use some other coupon.']")
+	WebElement invalid;
+	
 	public discountPage(){
 		PageFactory.initElements(driver, this);
 	}
 	
-	public boolean verifyFlatINR() throws Exception{
-		takescreenshot();
-		return flatINR.isDisplayed();
+	public void verifyResult(String result) throws Exception{
+		
+		if(result.equals("500")){
+			assertTrue(flatINR.isDisplayed());
+		}else if(result.equals("10%")){
+			assertTrue(percentageDisc.isDisplayed());
+		}else if(result.equals("FLAT")){
+			assertTrue(Free.isDisplayed());
+		}else if(result.equals("10$")){
+			assertTrue(flatDol.isDisplayed());
+		}else if(result.equals("INVALID")){
+			assertTrue(invalid.isDisplayed());
+		}
+		takescreenshot("Verify the Coupon Output");
+		
 	}
 	
-	public boolean verifypercentageDiscount() throws Exception{
-		takescreenshot();
-		return percentageDisc.isDisplayed();
-	}
-	
-	public boolean verifyFlatFree() throws Exception{
-		takescreenshot();
-		return Free.isDisplayed();
-	}
-	
-	public boolean verifyFlatDOL() throws Exception{
-		takescreenshot();
-		return flatDol.isDisplayed();
-	}
 }

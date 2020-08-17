@@ -35,10 +35,16 @@ public class SignUp extends BaseClass{
 	public void registration(String fname,String lname,String eml,String pass) {
 		//log.info("Entering details in registration form");
 		firstname.sendKeys(fname);
+		takeScreenShot("Enter First Name as "+fname);
 		lastname.sendKeys(lname);
+		takeScreenShot("Enter Last Name as "+lname);
 		email.sendKeys(eml);
+		takeScreenShot("Enter eMail as "+eml);
 		password.sendKeys(pass);
+		takeScreenShot("Enter Password as "+pass);
 		confirmpassword.sendKeys(pass);
+		takeScreenShot("Enter Confirmed Password as "+pass);
 		signup.click();
+		takeScreenShot("Click on SignUp");
 }
 }

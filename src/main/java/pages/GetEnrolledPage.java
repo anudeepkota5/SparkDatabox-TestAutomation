@@ -60,7 +60,8 @@ public class GetEnrolledPage extends BaseClass{
 	}
 	
 	public PaypalLogo clickOnEnrollNow() {
-		enrollnow.click();		
+		enrollnow.click();	
+		takeScreenShot("Click on Enroll Now");
 		return new PaypalLogo();
 	}
 	

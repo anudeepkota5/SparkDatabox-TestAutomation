@@ -12,6 +12,9 @@ public class menuPage extends BaseClass{
 	@FindBy(xpath="//a/span[contains(text(),'Enrolment')]")
 	WebElement enrollment;
 	
+	@FindBy(xpath="//a/span[contains(text(),'Students')]")
+	WebElement students;
+	
 	@FindBy(xpath="//a/span[text()='Coupons']")
 	WebElement coupons;
 	
@@ -32,8 +35,14 @@ public class menuPage extends BaseClass{
 	
 	public couponsPage clickCoupons() throws Exception{
 		coupons.click();
-		takescreenshot();
+		takescreenshot("Click on Coupons");
 		return new couponsPage();
+	}
+	
+	public studentsPage clickStudents() throws Exception{
+		students.click();
+		takescreenshot("Click on Students");
+		return new studentsPage();
 	}
 	
 	public void logout() throws Exception{
@@ -45,9 +54,9 @@ public class menuPage extends BaseClass{
 			k++;
 		}while(k < 1000);
 		userdrop.click();
-		takescreenshot();
+		takescreenshot("Click on User dropdown");
 		logout.click();
-		takescreenshot();
+		takescreenshot("Click on Logout");
 	}
 
 }

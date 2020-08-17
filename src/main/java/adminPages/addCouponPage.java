@@ -55,78 +55,80 @@ public class addCouponPage extends BaseClass{
 	
 	public addCouponPage entercoursetitle(String strcoursetitle) throws Exception{
 		coursetitle.sendKeys(strcoursetitle);
-		takescreenshot();
+		takescreenshot("Enter "+strcoursetitle+" in Course Title");
 		return this;
 	}
 	
 	public addCouponPage entercoursecode(String strcoursecode) throws Exception{
 		coursecode.sendKeys(strcoursecode);
-		takescreenshot();
+		takescreenshot("Enter "+strcoursecode+" in Course Code");
 		return this;
 	}
 	
 	public addCouponPage selectDiscountFor(String strRegion) throws Exception{
 		Select discountfor = new Select(discountforselect);
 		discountfor.selectByVisibleText(strRegion);
-		takescreenshot();
+		takescreenshot("Select "+strRegion+" in Discount For");
 		return this;
 	}
 	
 	public addCouponPage selectcoupontype(String strcoupontype) throws Exception{
 		Select discountType = new Select(coupontypeselect);
 		discountType.selectByVisibleText(strcoupontype);
-		takescreenshot();
+		takescreenshot("Select "+strcoupontype+" in Coupon Type");
 		return this;
 	}
 	
 	public addCouponPage enterFlatDiscountIN(String stramountIN) throws Exception{
 		amountIN.sendKeys(stramountIN);
-		takescreenshot();
+		takescreenshot("Enter "+stramountIN+" in Amount IN");
 		return this;
 	}
 	
 	public addCouponPage enterpercentDiscountIN(String strpercentin) throws Exception{
 		percentIN.sendKeys(strpercentin);
-		takescreenshot();
+		takescreenshot("Enter "+strpercentin+" in Percentage IN");
 		return this;
 	}
 	
 	public addCouponPage enterminamountIN(String strminamount) throws Exception{
 		minamount.sendKeys(strminamount);
-		takescreenshot();
+		takescreenshot("Enter Minimum Amount as "+strminamount);
 		return this;
 	}
 
 
 	public void enterFlatDiscountInDol(String string) throws Exception {
 		amountdol.sendKeys(string);
-		takescreenshot();
+		takescreenshot("Enter $ Amount" + string );
 	}
 
 	public void enterpercentDiscountDol(String string) throws Exception {
 		percentdol.sendKeys(string);
-		takescreenshot();
+		takescreenshot("Enter % in $ "+string);
 	}
 
 	public void enterminDolAmount(String string) throws Exception {
 		minamountdol.sendKeys(string);
-		takescreenshot();
+		takescreenshot("Enter Minimum Amount in $ "+string);
 	}
 
 	public addCouponPage selectcouponorVoucher(String strCouponTye) throws Exception {
 		Select voucherType = new Select(vouchertypeselect);
 		voucherType.selectByVisibleText(strCouponTye);
-		takescreenshot();
+		takescreenshot("Select Voucher Type as "+strCouponTye);
 		return this;
 	}
 
-	public addCouponPage entermaxUsage(String strmaxUsage) {
+	public addCouponPage entermaxUsage(String strmaxUsage) throws Exception {
 		maxUsage.sendKeys(strmaxUsage);
+		takescreenshot("Enter Maximum Usage as "+strmaxUsage);
 		return this;
 	}
 	
-	public void clickSaveandContinue(){
-		saveandContinue.click();		
+	public void clickSaveandContinue() throws Exception{
+		saveandContinue.click();	
+		takescreenshot("Click on SAVE and CONTINUE button");
 	}
 	
 }

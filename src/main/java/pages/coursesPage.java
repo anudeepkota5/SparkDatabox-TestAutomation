@@ -23,17 +23,17 @@ public class coursesPage extends BaseClass{
 			System.out.println(e.getText());
 			assertTrue(e.getText().toLowerCase().contains(strtext.toLowerCase()));
 		}
-		takescreenshot();
+		takescreenshot("Verify the search Result");
 	}
 	
 	public courseDetailPage selectCourse(String strtext) throws Exception{
 		for(WebElement e:searchList){
-			System.out.println(e.getText());
 			if(e.getText().toLowerCase().contains(strtext.toLowerCase())){
+				takeScreenShot("Select course as "+strtext);
 				e.click();
 			}
 		}
-		takescreenshot();
+		takescreenshot("Click on "+strtext+" Course");
 		return new courseDetailPage();
 	}
 }

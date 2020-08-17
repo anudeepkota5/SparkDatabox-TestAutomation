@@ -21,6 +21,7 @@ public PaypalLogo() {
 public PayPalGuestCheckOut clickOnpaypal() throws Exception {
 	ScrolldownbyWindow();
 	paypal.click();
+	takescreenshot("Click on Paypal");
 	driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class='zoid-component-frame zoid-visible']")));
 	ScrollElementIntoView(driver.findElement(By.xpath("//div[@class='paypal-button-label-container']/img[2]")));
 	driver.findElement(By.xpath("//div[@class='paypal-button-label-container']/img[2]")).click();

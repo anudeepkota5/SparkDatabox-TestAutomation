@@ -77,10 +77,11 @@ public class PayPalGuestCheckOut extends BaseClass{
 	}
 	
 	//String cno,String edate,String cv,String fnam,String lnam,String add,String cit,String stat,String pcode,String tele,String emai
-	public void clickOnguestCheckout(Hashtable<String, String> data) {
+	public void clickOnguestCheckout(Hashtable<String, String> data) throws Exception {
 		acceptcookies.click();
 		Select sel=new Select(country);
 		sel.selectByValue("US");
+		takescreenshot("Enter Country as US");
 		int k = 0;
 		do{
 			if(driver.findElement(By.id("main")).getAttribute("aria-busy").equals("false")){
@@ -89,21 +90,32 @@ public class PayPalGuestCheckOut extends BaseClass{
 			k++;
 		}while(k < 1000);
 		JsSendKeys(cardno, data.get("cardno"));
+		takescreenshot("Enter Card No as "+data.get("cardno"));
 		JsSendKeys(expdate, data.get("expDate"));
+		takescreenshot("Enter ExpDate as "+data.get("expDate"));
 		cvv.sendKeys(data.get("cvv"));
+		takescreenshot("Enter CVV as "+data.get("cvv"));
 		fname.sendKeys(data.get("fname"));
+		takescreenshot("Enter First Name as "+data.get("fname"));
 		lname.sendKeys(data.get("lname"));
+		takescreenshot("Enter Last Name as "+data.get("lname"));
 		add1.sendKeys(data.get("address"));
+		takescreenshot("Enter address as "+data.get("address"));
 		city.sendKeys(data.get("city"));
+		takescreenshot("Enter city as "+data.get("city"));
 //		Select sel1=new Select(state);
 //		sel1.selectByVisibleText(data.get("state"));
 		state.sendKeys(data.get("state"));
+		takescreenshot("Enter state as "+data.get("state"));
 		postalcode.sendKeys(data.get("pincode"));
+		takescreenshot("Enter Pincode as "+data.get("pincode"));
 		telephne.sendKeys(data.get("telephn"));
+		takescreenshot("Enter Telephone as "+data.get("telephn"));
 		email.sendKeys(data.get("email"));
+		takescreenshot("Enter Email ID as "+data.get("email"));
 		ScrollElementIntoView(paynow);
 		paynow.click();
-		
+		takescreenshot("Click on Paynow");
 		//return new PayPalGuestCheckOut();
 	}
 }

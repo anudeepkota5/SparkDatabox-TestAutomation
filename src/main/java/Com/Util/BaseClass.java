@@ -1,5 +1,7 @@
 package Com.Util;
 
+import static org.testng.Assert.assertEquals;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -13,6 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
@@ -155,16 +158,29 @@ public class BaseClass {
 				ChromeDriver driver=new ChromeDriver();
 				driver.get("https://accounts.zoho.in/signin?servicename=VirtualOffice&signupurl=https://www.zoho.in/mail/zohomail-pricing.html&serviceurl=https://mail.zoho.in");
 				driver.findElement(By.id("login_id")).sendKeys("sparkdatabox@zohomail.in");
+				WebDriverWait wait = new WebDriverWait(driver,30);
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button/span[text()='Next']")));
 				JavascriptExecutor js=((JavascriptExecutor)driver);
 				js.executeScript("arguments[0].click()", driver.findElement(By.xpath("//button/span[text()='Next']")));
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("password")));
 				driver.findElement(By.id("password")).sendKeys("test@1234t");
-				js.executeScript("arguments[0].click()", driver.findElement(By.xpath("//button/span[text()='Sign in']")));
-				WebDriverWait wait = new WebDriverWait(driver,30);
-				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div/span[@title='noreply@zohoaccounts.in']")));
-				driver.findElement(By.xpath("//div/span[@title='noreply@zohoaccounts.in']")).click();
-				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='Contact us']")));
-				driver.findElement(By.xpath("//a[text()='Contact us']")).click();
-				driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
+				js.executeScript("arguments[0].click()", driver.findElement(By.xpath("//button/span[text()='Sign in']")));				
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div/span[text()='Spam']")));
+				driver.findElement(By.xpath("//div/span[text()='Spam']")).click();
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div/span[@title='support@sparkdatabox.com']")));
+				driver.findElement(By.xpath("//div/span[@title='support@sparkdatabox.com']")).click();
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='Verify Your Email Address']")));
+				driver.findElement(By.xpath("//a[text()='Verify Your Email Address']")).click();
+				String parent = driver.getWindowHandle();
+				Set<String> windows = driver.getWindowHandles();
+				for (String win:windows){
+					driver.switchTo().window(win);
+				}
+				boolean bool = driver.findElement(By.xpath("//p[text()='You are successfully registered on SparkDatabox please log in']")).isDisplayed();
+				assertEquals(bool, true);
+				driver.switchTo().window(parent);
+				driver.findElement(By.xpath("//li[@data-action='trash']")).click();
+				driver.quit();
 	}
 	
 	public static void takeScreenShot(String testmethod) {
@@ -201,13 +217,13 @@ public class BaseClass {
 		jse.executeScript("arguments[0].value='"+strText+"';", e);
 	}
 	
-	public void takescreenshot() throws Exception{
+	public void takescreenshot(String strMessage) throws Exception{
 		String dateName = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
 		TakesScreenshot ts = (TakesScreenshot) driver;
 		File source = ts.getScreenshotAs(OutputType.FILE);
 		String destination = System.getProperty("user.dir") + "/FailedTestsScreenshots/"+dateName+".png";
 		File finalDestination = new File(destination);
 		FileUtils.copyFile(source, finalDestination);
-		logger.log(LogStatus.INFO, logger.addScreenCapture(destination));		
+		logger.log(LogStatus.INFO, strMessage + logger.addScreenCapture(destination));		
 	}
 }
