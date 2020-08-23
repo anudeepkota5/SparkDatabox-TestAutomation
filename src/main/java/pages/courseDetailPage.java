@@ -17,8 +17,12 @@ public class courseDetailPage extends BaseClass{
 	@FindBy(xpath="//button[text()='Apply']")
 	WebElement apply;
 	
-	@FindBy(xpath="(//a[text()='Get Enrolled'])[position()=1]")
+	@FindBy(xpath="//a[text()='Get Enrolled']")
 	WebElement getenrolled;
+	
+	@FindBy(xpath="//a[text()='Enroll Now']")
+	WebElement enrollNow;
+	
 	
 	public courseDetailPage() {
 		PageFactory.initElements(driver, this);
@@ -30,6 +34,11 @@ public class courseDetailPage extends BaseClass{
 		return this;
 	}
 	
+	private void takeScreenShot(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public discountPage clickApply() throws Exception{
 		apply.click();
 		takescreenshot("Click on Apply");
@@ -46,5 +55,11 @@ public class courseDetailPage extends BaseClass{
 		getenrolled.click();
 		takescreenshot("Click on Get Enrolled");
 		return new MyCourses();
+	}
+	
+	public courseDetailPage clickenrollNow() throws Exception{
+		enrollNow.click();
+		takescreenshot("Click on Get Enrolled");
+		return this;
 	}
 }

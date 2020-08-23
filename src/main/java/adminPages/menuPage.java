@@ -29,8 +29,10 @@ public class menuPage extends BaseClass{
 		PageFactory.initElements(driver, this);
 	}
 	
-	public void clickEnrollment(){
+	public EnrollmentPage clickEnrollment() throws Exception{
+		takescreenshot("Click on Enrollment");
 		enrollment.click();
+		return new EnrollmentPage();
 	}
 	
 	public couponsPage clickCoupons() throws Exception{

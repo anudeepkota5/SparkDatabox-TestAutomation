@@ -15,9 +15,9 @@ public class studentsMainPage extends BaseClass{
 		PageFactory.initElements(driver, this);
 	}
 	
-	public studentsListPage searchuser(String strUser){
+	public studentsListPage searchuser(String strUser) throws Exception{
 		search.sendKeys(strUser);
-		takeScreenShot("Enter "+strUser+" in search");
+		takescreenshot("Enter "+strUser+" in search");
 		return new studentsListPage();
 	}
 	

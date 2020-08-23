@@ -19,11 +19,18 @@ public class studentsListPage extends BaseClass{
 	@FindBy(xpath="//tbody/tr/td[6]//a[text()='Delete']")
 	List<WebElement> delete;
 	
+	@FindBy(xpath="//a[text()='Add Student']")
+	WebElement addStudent;	
+	
+	@FindBy(xpath="//input[@type='search']")
+	WebElement search;		
+	
 	public studentsListPage(){
 		PageFactory.initElements(driver, this);
 	}
 	
 	public void deleteUser(String strUser) throws Exception{
+		search.sendKeys(strUser);
 		int i = 0;
 		for(WebElement user:email){
 			if(user.getText().contains(strUser)){
@@ -39,6 +46,12 @@ public class studentsListPage extends BaseClass{
 			i++;
 		}
 		
+	}
+	
+	public studentAddFormBasicInfo clickAddUser() throws Exception{
+		addStudent.click();
+		takescreenshot("Click on Add Student Button");
+		return new studentAddFormBasicInfo();
 	}
 	
 

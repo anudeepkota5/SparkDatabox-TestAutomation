@@ -23,7 +23,8 @@ public class MyCourses extends BaseClass {
 			addedcourse.get(i).getText().equals(validatecours);
 		    Boolean bool=addedcourse.get(i).isDisplayed();
 		     Assert.assertTrue(bool);
+		 }
+		}
 	
 	}
-	}}
 

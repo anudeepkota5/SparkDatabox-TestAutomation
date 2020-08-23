@@ -59,9 +59,9 @@ public class GetEnrolledPage extends BaseClass{
 		return new MyCourses();
 	}
 	
-	public PaypalLogo clickOnEnrollNow() {
+	public PaypalLogo clickOnEnrollNow() throws Exception {
 		enrollnow.click();	
-		takeScreenShot("Click on Enroll Now");
+		takescreenshot("Click on Enroll Now");
 		return new PaypalLogo();
 	}
 	

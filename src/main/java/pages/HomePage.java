@@ -2,7 +2,6 @@ package pages;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -14,7 +13,6 @@ import Com.Util.BaseClass;
 
 
 public class HomePage extends BaseClass {
-	static Logger log=Logger.getLogger(HomePage.class);
 
 	@FindBy(xpath="(//div//a[text()='Sign Up'])[position()=2]")
 	WebElement signup;
@@ -112,7 +110,6 @@ public class HomePage extends BaseClass {
 	
 	
 	public void clickOnCourseTitle() {
-		log.info("clicking on course title");
 		JavaScriptCourseTitle.click();
 	}
 	
@@ -128,7 +125,6 @@ public class HomePage extends BaseClass {
 	}
 	
 	public String verifytitle() {
-		log.info("verifying homepage title");
 		return driver.getTitle();
 	}
 	
@@ -138,12 +134,12 @@ public class HomePage extends BaseClass {
 		return new LoginPage();
 	}
 	
-	public GetEnrolledPage selectLiveAndSelfPacedCourses(String LiveAndSelfPaced) {
+	public GetEnrolledPage selectLiveAndSelfPacedCourses(String LiveAndSelfPaced) throws Exception {
 		for(int i=0;i<liveandselfpacedcourses.size();i++) {
 			if(liveandselfpacedcourses.get(i).getText().equalsIgnoreCase(LiveAndSelfPaced)) {
 				WebElement elee=liveandselfpacedcourses.get(i);
 				javaScriptClick(elee);		
-				takeScreenShot("Click on "+LiveAndSelfPaced);
+				takescreenshot("Click on "+LiveAndSelfPaced);
 			}
 		}
 		return new GetEnrolledPage();

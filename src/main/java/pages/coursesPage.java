@@ -29,7 +29,7 @@ public class coursesPage extends BaseClass{
 	public courseDetailPage selectCourse(String strtext) throws Exception{
 		for(WebElement e:searchList){
 			if(e.getText().toLowerCase().contains(strtext.toLowerCase())){
-				takeScreenShot("Select course as "+strtext);
+				takescreenshot("Select course as "+strtext);
 				e.click();
 			}
 		}

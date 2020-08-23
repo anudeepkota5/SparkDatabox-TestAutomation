@@ -19,7 +19,6 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
@@ -55,7 +54,7 @@ public class BaseClass {
 	public static Properties prop;
 	public static ExtentReports extent;
 	public static ExtentTest logger;
-	Logger log=Logger.getLogger(BaseClass.class);
+	public static String resultfolder;
 	HomePage hp;
 	
 	public static BaseClass GetInstance() {
@@ -66,7 +65,8 @@ public class BaseClass {
 	
 	@BeforeSuite
 	public void createReports(){
-		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ExtentReport.html");
+		resultfolder = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+		extent = new ExtentReports(System.getProperty("user.dir")+"/Result-"+resultfolder+"//ExtentReport.html");
 		extent.addSystemInfo("Environment", "QA");
 		extent.addSystemInfo("Host Name", "Windows");
 		extent.loadConfig(new File(System.getProperty("user.dir")+"/extent-config.xml"));
@@ -146,7 +146,6 @@ public class BaseClass {
 		}
 	
 		driver.manage().window().maximize();
-		log.debug("Opening url");
 		driver.get(prop.getProperty("url"));
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		return driver;
@@ -183,16 +182,6 @@ public class BaseClass {
 				driver.quit();
 	}
 	
-	public static void takeScreenShot(String testmethod) {
-		try {
-		File file=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-		FileHandler.copy(file, new File(System.getProperty("user.dir")+"\\target\\shreenshots\\"+testmethod+".png"));
-		}
-		catch(Exception e) {
-			e.getStackTrace();
-		}
-		}
-	
 	public static void javaScriptClick(WebElement element) {
 		
 		JavascriptExecutor js=((JavascriptExecutor)driver);
@@ -221,7 +210,7 @@ public class BaseClass {
 		String dateName = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
 		TakesScreenshot ts = (TakesScreenshot) driver;
 		File source = ts.getScreenshotAs(OutputType.FILE);
-		String destination = System.getProperty("user.dir") + "/FailedTestsScreenshots/"+dateName+".png";
+		String destination = System.getProperty("user.dir") + "/Result-"+resultfolder+"/screenshots/"+dateName+".png";
 		File finalDestination = new File(destination);
 		FileUtils.copyFile(source, finalDestination);
 		logger.log(LogStatus.INFO, strMessage + logger.addScreenCapture(destination));		

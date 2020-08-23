@@ -33,7 +33,7 @@ public PayPalGuestCheckOut clickOnpaypal() throws Exception {
 	        driver.switchTo().window(handle);
 	    }
 	}
-	driver.findElement(By.xpath("//a[text()='Create an Account']")).click();
+	driver.findElement(By.xpath("//a[text()='Pay with Debit or Credit Card']")).click();
 	int k = 0;
 	do{
 		if(driver.findElement(By.id("preloaderSpinner")).getAttribute("style").equals("display: none;")){

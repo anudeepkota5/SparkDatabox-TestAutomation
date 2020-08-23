@@ -32,19 +32,19 @@ public class SignUp extends BaseClass{
 		PageFactory.initElements(driver, this);
 	}
 	
-	public void registration(String fname,String lname,String eml,String pass) {
+	public void registration(String fname,String lname,String eml,String pass) throws Exception {
 		//log.info("Entering details in registration form");
 		firstname.sendKeys(fname);
-		takeScreenShot("Enter First Name as "+fname);
+		takescreenshot("Enter First Name as "+fname);
 		lastname.sendKeys(lname);
-		takeScreenShot("Enter Last Name as "+lname);
+		takescreenshot("Enter Last Name as "+lname);
 		email.sendKeys(eml);
-		takeScreenShot("Enter eMail as "+eml);
+		takescreenshot("Enter eMail as "+eml);
 		password.sendKeys(pass);
-		takeScreenShot("Enter Password as "+pass);
+		takescreenshot("Enter Password as "+pass);
 		confirmpassword.sendKeys(pass);
-		takeScreenShot("Enter Confirmed Password as "+pass);
+		takescreenshot("Enter Confirmed Password as "+pass);
 		signup.click();
-		takeScreenShot("Click on SignUp");
+		takescreenshot("Click on SignUp");
 }
 }

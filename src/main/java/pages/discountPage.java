@@ -25,6 +25,9 @@ public class discountPage extends BaseClass{
 	@FindBy(xpath = "//p[text()='sorry this coupon is not applicable in your region! please use some other coupon.']")
 	WebElement invalid;
 	
+	@FindBy(xpath = "//p[text()='Invalid or expire coupon! please enter a valid coupon code.']")
+	WebElement Expired;
+	
 	public discountPage(){
 		PageFactory.initElements(driver, this);
 	}
@@ -44,6 +47,11 @@ public class discountPage extends BaseClass{
 		}
 		takescreenshot("Verify the Coupon Output");
 		
+	}
+	
+	public void verifyExpired() throws Exception{
+		assertTrue(Expired.isDisplayed());
+		takescreenshot("Verify the Coupon Output");
 	}
 	
 }
